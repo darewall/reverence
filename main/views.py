@@ -19,7 +19,7 @@ class CatalogView(ListView):
             queryset = queryset.filter(category__slug__in=category_slugs)
 
         if size_names:
-            queryset = queryset.filter(Q(sizes__name__in=size_names) & Q(sizes__clothingitemsize__available=True))
+            queryset = queryset.filter(Q(sizes__name__in=size_names) & Q(sizes__clothingitemsize__available=True)).distinct()
 
         if min_price:
             queryset = queryset.filter(price__gte=min_price)
@@ -31,7 +31,7 @@ class CatalogView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
+        context['categories'] = Category.objects.all()
         context['sizes'] = Size.objects.all()
         context['selected_categories'] = self.request.GET.getlist('category')
         context['selected_sizes'] = self.request.GET.getlist('size')
