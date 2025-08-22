@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}{{ clothing_item.name }}{% endblock title %}
+{% block title %}Reverence Interlude - {{ clothing_item.name }}{% endblock title %}
 
 {% block content %}
     <div class="detail-product d-flex">
@@ -40,7 +40,7 @@
                 <p class='detail-price'>${{ clothing_item.price }}</p>
             {% endif %}
             <div class="detail-cart-form">
-                <form action="" method="post">
+                <form action="{% url 'cart:cart_add' clothing_item.id %}" method="post">
                     {% csrf_token %}
                     <div class="selected-size d-flex gap-2">
                         <label for="size">Size:</label>
